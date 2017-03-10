@@ -1,0 +1,23 @@
+{
+  "name": "smalot/vagrant-wrapper",
+  "description": "Vagrant command line wrapper.",
+  "keywords": ["vagrant", "command line", "wrapper"],
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Sebastien Malot",
+      "email": "smalot@actualys.com"
+    }
+  ],
+  "require": {
+    "symfony/process": "*"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "autoload": {
+    "psr-4": {
+      "Smalot\\Vagrant\\Wrapper\\": "src/"
+    }
+  }
+}

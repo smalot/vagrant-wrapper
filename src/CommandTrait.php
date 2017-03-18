@@ -42,10 +42,18 @@ trait CommandTrait
      */
     protected function run(Process $process)
     {
-        return $process->run(
+        $process->start(
           function ($type, $output) {
               $this->lastOutput .= $output;
           }
         );
+
+        return true;
+
+//        return $process->run(
+//          function ($type, $output) {
+//              $this->lastOutput .= $output;
+//          }
+//        );
     }
 }

@@ -32,7 +32,7 @@ class Snapshot
     public function getList()
     {
         $command = escapeshellarg(self::$bin).' snapshot list';
-        $process = new Process($command, $this->cwd, null, null, null);
+        $process = new Process($command, $this->cwd, $this->env, null, null);
         $list = [];
 
         if (!$this->run($process)) {
@@ -56,7 +56,7 @@ class Snapshot
     {
         $command = escapeshellarg(self::$bin).' snapshot save ';
         $command .= escapeshellarg($name);
-        $process = new Process($command, $this->cwd, null, null, null);
+        $process = new Process($command, $this->cwd, $this->env, null, null);
 
         return !$this->run($process);
     }
@@ -69,7 +69,7 @@ class Snapshot
     {
         $command = escapeshellarg(self::$bin).' snapshot restore ';
         $command .= escapeshellarg($name);
-        $process = new Process($command, $this->cwd, null, null, null);
+        $process = new Process($command, $this->cwd, $this->env, null, null);
 
         return !$this->run($process);
     }
@@ -82,7 +82,7 @@ class Snapshot
     {
         $command = escapeshellarg(self::$bin).' snapshot delete ';
         $command .= escapeshellarg($name);
-        $process = new Process($command, $this->cwd, null, null, null);
+        $process = new Process($command, $this->cwd, $this->env, null, null);
 
         return !$this->run($process);
     }
@@ -93,7 +93,7 @@ class Snapshot
     public function doPop()
     {
         $command = escapeshellarg(self::$bin).' snapshot pop';
-        $process = new Process($command, $this->cwd, null, null, null);
+        $process = new Process($command, $this->cwd, $this->env, null, null);
 
         return !$this->run($process);
     }
@@ -104,7 +104,7 @@ class Snapshot
     public function doPush()
     {
         $command = escapeshellarg(self::$bin).' snapshot push';
-        $process = new Process($command, $this->cwd, null, null, null);
+        $process = new Process($command, $this->cwd, $this->env, null, null);
 
         return !$this->run($process);
     }

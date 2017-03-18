@@ -22,12 +22,19 @@ class Vagrant
     protected $cwd;
 
     /**
+     * @var array
+     */
+    protected $env;
+
+    /**
      * Vagrant constructor.
      * @param string $cwd
+     * @param array $env
      */
-    public function __construct($cwd = null)
+    public function __construct($cwd = null, $env = [])
     {
         $this->cwd = $cwd;
+        $this->env = $env;
     }
 
     /**
@@ -41,7 +48,7 @@ class Vagrant
             $command .= ' --prune';
         }
 
-        $process = new Process($command, $this->cwd, null, null, 15);
+        $process = new Process($command, $this->cwd, $this->env, null, 15);
         $status = [];
 
         if (!$this->run($process)) {
@@ -74,7 +81,7 @@ class Vagrant
     public function getStatus()
     {
         $command = escapeshellarg(self::$bin).' status';
-        $process = new Process($command, $this->cwd, null, null, 15);
+        $process = new Process($command, $this->cwd, $this->env, null, 15);
 
         if (!$this->run($process)) {
             $output = $process->getOutput();
@@ -91,7 +98,7 @@ class Vagrant
     /**
      * @param string $provider
      * @param string $provision
-     * @return bool
+     * @return Process
      */
     public function doUp($provider = null, $provision = null)
     {
@@ -107,9 +114,9 @@ class Vagrant
             }
         }
 
-        $process = new Process($command, $this->cwd, null, null, 360);
+        $process = new Process($command, $this->cwd, $this->env, null, 360);
 
-        return !$this->run($process);
+        return $process;
     }
 
     /**
@@ -127,7 +134,7 @@ class Vagrant
             }
         }
 
-        $process = new Process($command, $this->cwd, null, null, 60);
+        $process = new Process($command, $this->cwd, $this->env, null, 60);
 
         return !$this->run($process);
     }
@@ -143,7 +150,7 @@ class Vagrant
             $command .= ' --force';
         }
 
-        $process = new Process($command, $this->cwd, null, null, 60);
+        $process = new Process($command, $this->cwd, $this->env, null, 60);
 
         return !$this->run($process);
     }
@@ -155,7 +162,7 @@ class Vagrant
     {
         $command = escapeshellarg(self::$bin).' suspend';
 
-        $process = new Process($command, $this->cwd, null, null, 60);
+        $process = new Process($command, $this->cwd, $this->env, null, 60);
 
         return !$this->run($process);
     }
@@ -167,7 +174,7 @@ class Vagrant
     {
         $command = escapeshellarg(self::$bin).' resume';
 
-        $process = new Process($command, $this->cwd, null, null, 60);
+        $process = new Process($command, $this->cwd, $this->env, null, 60);
 
         return !$this->run($process);
     }
